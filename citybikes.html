@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .low_free_bikes {
+            background-color: lightcoral;
+        }
+        .plenty_free_bikes {
+            background-color: lightgreen;
+        }
+    </style>
+    <link rel="stylesheet" href="userlist.css">
+</head>
+<body>
+    <h1 id="title"></h1>
+    <h2 id="subtitle"></h2>
+    <table id="tblStations" class="pttable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Free Bikes</th>
+                <th>Slots</th>
+                <th>Empty Slots</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        let url = "http://api.citybik.es/v2/networks/cork";
+
+        $(document).ready(() => {
+            $.getJSON(url, (data)=>{
+                console.log(data);
+                console.log(data.network.name);
+                console.log(data.network.company[0]);
+                $('#title').html(data.network.name);
+                $('#subtitle').html(data.network.company[0]);
+
+                data.network.stations.forEach(station => {
+                    console.log(station.name);
+
+                    $("#tblStations tbody").append(`<tr class="${ station.free_bikes < 4 ? "low_free_bikes": "plenty_free_bikes"}">
+                        <td>${station.name}</td>
+                        <td>(${station.latitude},${station.longitude})</td>
+                        <td>${station.free_bikes}</td>
+                        <td>${station.extra.slots}</td>
+                        <td>${station.empty_slots}</td>
+                    </tr>`)
+                })
+            });
+        });
+    </script>
+
+</body>
+</html>
