@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>jQuery Investigation</h1>
+
+    <table class="pttable">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Active</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td><button class="btnDelete" id="btnDelete_1">Delete</button></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td><button class="btnDelete" id="btnDelete_1">Delete</button></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td><button class="btnDelete" id="btnDelete_1">Delete</button></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+                <td><button class="btnDelete" id="btnDelete_1">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button id="btnTest">Press Me</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(() => {
+            // this is often used to set up the page 
+            // make ajax calls
+            // populate tables etc
+
+            //alert("document ready to render");
+
+            $('.btnDelete').on("click", () => {
+                //alert("delete");
+
+                $('.pttable tbody tr:nth-child(3)').remove();
+            });
+
+            // document.querySelectorAll(".btnDelete")
+
+        });
+
+
+        // event handling
+        $('#btnTest').on("click", () => {
+            alert("You clicked the button");
+        });
+
+        // if the selector finds multiple items
+        // it will run the function for each item
+        //$(".pttable tbody tr").on("click", () => {
+        //    alert("You clicked a row");
+        //});
+
+
+        // DOM manipulation
+
+        //jQuery("h1").html("Changed The Title");
+
+        // use $() instead of jQuery()
+        // syntax for selecting is identical to CSS selector syntax
+        $("h1").html("Changed!");
+
+        $(".pttable tbody tr:nth-child(3) td:first-of-type").html("XXXXXX");
+
+        $(".pttable tbody").append(`<tr><td>YYY</td><td>YYY</td><td>YYY</td><td>YYY</td></tr>`)
+
+
+
+
+
+        // ajax calls
+
+
+
+    </script>
+
+
+</body>
+</html>

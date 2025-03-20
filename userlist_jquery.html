@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="userlist.css">
+</head>
+<body>
+    <h1>jQuery User List</h1>
+    <label>Active</label><input type="radio" name="rbActive" value="active" onchange="onChanged()">
+    <label>Inactive</label><input type="radio" name="rbActive" value="inactive" onchange="onChanged()">
+    <label>All</label><input type="radio" name="rbActive" value="all" checked onchange="onChanged()">
+    <table id="tblUsers" class="pttable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody id="tblUsersTbody">
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        let people = [
+            { id:1, name:"Alice", email:"alice@gmail.com", active:true },
+            { id:2, name:"Bob", email:"bob@gmail.com", active:false },
+            { id:3, name:"Carol", email:"carol@gmail.com", active:false },
+            { id:4, name:"Dan", email:"dan@gmail.com", active:true }, 
+            { id:5, name:"Eve", email:"eve@gmail.com", active:false }, 
+            { id:6, name:"Fred", email:"fred@gmail.com", active:true }, 
+            { id:7, name:"Ger", email:"ger@gmail.com", active:false }, 
+            { id:8, name:"Harriet", email:"harriet@gmail.com", active:true }, 
+        ];
+
+        function populateTable(peopleList) {
+            $('.pttable tbody').empty();
+
+            peopleList.forEach(person=>{
+                $('.pttable tbody').append(`<tr id="tr_${person.id}">
+                        <td>${person.id}</td>
+                        <td>${person.name}</td>
+                        <td>${person.email}</td>
+                        <td>${person.active ? "Active" : "Inactive"}</td>
+                        <td><button class="btnDelete" id="btnDelete_${person.id}">Delete</button</td>
+                    </tr>`);
+            });
+        }
+        $(document).ready(() => {
+            populateTable(people);
+
+            // original : $('.btnDelete').on("click", (event) => {
+
+            // add event handler for all items with class .btnDelete
+            // nb: even ones that don't exist yet!!!
+            $(document).on("click", ".btnDelete", (event) => {
+                if (confirm("Are you sure?")) {
+
+                    let btnId = event.currentTarget.id;
+                    let pieces = btnId.split("_");
+                    let idToDelete = pieces[1];
+                    console.log(`Delete row ${ idToDelete }`);
+                    $(`#tr_${idToDelete}`).remove();
+
+                    // remove the item from the people list
+                    let index = people.findIndex(person => person.id == idToDelete);
+
+                    people.splice(index, 1);
+                }
+
+                //alert("delete");
+            });
+
+            $("input[name=rbActive]").on("change", () => {
+                let rbChoice = $("input[name=rbActive]:checked").val();
+               
+                if (rbChoice == "all")  {
+                    populateTable(people);
+                } else if (rbChoice == "active") {
+                    populateTable(people.filter(person=>person.active));
+                } else {
+                    populateTable(people.filter(person=>!person.active));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
