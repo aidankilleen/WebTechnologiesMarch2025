@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="mainheading">xxxx</h1>  
+    
+    <select id="selColour" onchange="onChanged()">
+    </select>
+        
+    <div id="footer">FOOTER</div>
+    <script>
+        var name = "Aidan";
+        var title = "Get Information Web Application";
+        var mainHeading = document.getElementById("mainheading");
+        mainHeading.innerHTML = title;
+
+        // create copyright message
+        var date = new Date();
+
+        //alert(date.getFullYear());
+
+        var message = "Copyright &copy; " + date.getFullYear() + " Professional Training Ltd.";
+        document.getElementById("footer").innerHTML = message;
+
+
+
+        var colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+        var select = document.getElementById("selColour");
+
+        for (var colour of colours) {
+            var option = document.createElement("option");
+            option.text = colour;
+            option.value = colour;
+            select.appendChild(option);
+        }
+
+
+        function onChanged() {
+            var colour = selColour.value;
+            mainHeading.style.color = colour;
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
