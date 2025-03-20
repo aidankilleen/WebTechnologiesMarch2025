@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <h1>Function Investigation</h1>
+    
+    <button id="btnTest">Press Me</button>
+    <button id="btnTest2">Press Me 2</button>
+    
+    
+    <script src="js_functions.js"></script>
+
+    <script>
+
+    let colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+
+    colours.forEach((value, index, arr) => {
+        console.log(index, value, arr);
+    });
+
+    colours.forEach((colour) => {
+        console.log(colour);
+    });
+
+    // shortening the call
+    // if your callback has a single parameter you can leave out ()
+    // if you callback has only a single line you can leave out {}
+    colours.forEach(colour => console.log(colour));
+
+    let list = [1,3,2,6,8,7,5,3,9,10,2,3];
+
+    let evenNumbers = list.filter((value) => {
+
+        if (value % 2 == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    console.log(list);
+    console.log(evenNumbers);
+
+    // shorten this
+    // if there is one parameter remove ()
+    // simplify the logic
+    // if single line remove the {}, return and ;
+    let oddNumbers = list.filter(value => value % 2 == 1);
+
+    console.log(oddNumbers);
+
+    let people = [
+        { id:1, name:"Alice", email:"alice@gmail.com", active:true },
+        { id:2, name:"Bob", email:"bob@gmail.com", active:false },
+        { id:3, name:"Carol", email:"carol@gmail.com", active:false },
+        { id:4, name:"Dan", email:"dan@gmail.com", active:true }
+    ];
+
+    let activeUsers = people.filter((person) => {
+        if (person.active) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    people.filter(person => person.active)
+        .forEach(person=>console.log(person.name));
+
+    
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>String Investigation</h1>
+
+    <img src='https://picsum.photos/200/300'>
+
+    <script>
+        console.log("string investigation");
+
+        // single and double quotes are interchangable
+        let name = "Aidan";
+        name = 'Aidan';
+        name = "Alan O'Sullivan";
+        name = 'press the "Red" button';
+
+        let message = "Press the \"Red\" button";
+
+        console.log(message);
+        
+        // backtick strings (templated strings)
+        message = `Press the \"red\" button`;
+        
+        console.log(message);
+
+        name = "Aidan"
+
+        message = `Welcome ${ name }`;
+
+        console.log(message);
+
+        let a = 10;
+        let b = 20;
+
+        let answer = a + b;
+
+        message = "" + a  + " + " + b + " = " + answer;
+
+        console.log(message);
+        
+        message = `${ a } + ${ b } = ${ answer }`;
+        
+        console.log(message);
+        
+        message = `${ a } + ${ b } = ${ a + b }`;
+        
+        console.log(message);
+
+
+        let info = "this is a test sentence";
+
+        let words = info.split(" ");
+
+        console.log(words);
+        message = words.join( " ");
+        console.log(message);
+        console.log(message.slice(5,10));
+
+
+    </script>
+</body>
+</html>

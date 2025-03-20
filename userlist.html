@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .pttable {
+            width: 100%;
+            margin: 20px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .pttable thead {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .pttable th, table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .pttable tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .pttable tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .pttable tbody td:first-child {
+            font-weight: 600;
+        }
+
+
+/*         #tblUsers {
+            color: red;
+        }
+        #tblUsers tbody tr td:nth-child(1) {
+            background-color: lightgray;
+        }
+        input[type=radio] {
+        }
+        input[name=rbActive]:checked {
+            accent-color: pink;
+        } */
+
+    </style>
+</head>
+<body>
+    <h1>User List</h1>
+
+    <label>Active</label><input type="radio" name="rbActive" value="active" onchange="onChanged()">
+    <label>Inactive</label><input type="radio" name="rbActive" value="inactive" onchange="onChanged()">
+    <label>All</label><input type="radio" name="rbActive" value="all" checked onchange="onChanged()">
+
+    <table id="tblUsers" class="pttable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody id="tblUsersTbody">
+
+        </tbody>
+    </table>
+    <script>
+
+        function onChanged() {
+            // css selector
+            // input control with name="rbActive" that is checked
+            let rb = document.querySelector("input[name=rbActive]:checked");
+            let filtered = people;
+            if (rb.value == "active") {
+                filtered = people.filter(user => user.active);
+            } else if (rb.value == "inactive") {
+                filtered = people.filter(user => !user.active);
+            } else {
+                filtered = people;
+            }
+            // update the table to show filtered
+            updateTable(filtered);
+        }
+
+        let people = [
+            { id:1, name:"Alice", email:"alice@gmail.com", active:true },
+            { id:2, name:"Bob", email:"bob@gmail.com", active:false },
+            { id:3, name:"Carol", email:"carol@gmail.com", active:false },
+            { id:4, name:"Dan", email:"dan@gmail.com", active:true }, 
+            { id:5, name:"Eve", email:"eve@gmail.com", active:false }, 
+            { id:6, name:"Fred", email:"fred@gmail.com", active:true }, 
+            { id:7, name:"Ger", email:"ger@gmail.com", active:false }, 
+            { id:8, name:"Harriet", email:"harriet@gmail.com", active:true }, 
+        ];
+
+        function updateTable(peopleList) {
+
+            let tbody = document.getElementById("tblUsersTbody");
+            
+            // empty the table before adding rows
+            tbody.innerHTML = "";
+            peopleList.forEach(person => {
+                tbody.innerHTML += `<tr>
+                    <td>${ person.id }</td>
+                    <td>${ person.name }</td>
+                    <td>${ person.email }</td>
+                    <td>${ person.active ? "Active" : "Inactive" }</td>
+                    </tr>`;
+                });
+        }
+        updateTable(people);
+                
+    </script>
+</body>
+</html>
