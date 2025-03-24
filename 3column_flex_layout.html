@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+        .header {
+            width: 100%;
+            flex: 20vh 1 1;
+            background-color: lightcoral;
+        }
+        .content {
+            flex: 70vh 0 0; /* how does this behave as a child */
+
+            /* --- these two settings have NOTHING to do with each other ---*/
+
+            display: flex; /* how are the children laid out */
+            flex-direction: row;
+        }
+        .left {
+            flex: 20% 0 0;
+            background-color: lightblue;
+        }
+        .main {
+            flex: 70% 1 1;
+            background-color: lightgray;
+            overflow: auto;
+        }
+        .right {
+            flex: 10% 1 1;
+            background-color: lightgreen;
+        }
+        .footer {
+            flex: 10vh 1 1;
+            background-color: lightcoral;
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                flex: auto 1 1;
+            }
+            .content {
+                flex-direction: column;
+
+                flex: auto 1 1;
+            }
+            .left {
+                flex: auto 1 1;
+            }
+            .main {
+                flex: auto 1 1;
+            }
+            .right {
+                flex: auto 1 1;
+            }
+            .footer {
+                flex: auto 1 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header" class="header">Header</div>
+    <div id="content" class="content">
+        <div id="left" class="left">Left</div>
+        <div id="main" class="main">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere in, nostrum eaque eum harum, unde fugiat, sint itaque illo quisquam error nesciunt repudiandae modi. Delectus libero deserunt reiciendis enim ratione?</p>
+            <p>Quibusdam sapiente, sint ipsam debitis aperiam optio quisquam soluta accusamus doloremque incidunt perspiciatis. Saepe iusto aliquam, laboriosam sunt qui consequatur, asperiores tenetur beatae eligendi quo commodi, dicta ipsam mollitia iste!</p>
+            <p>Iste minus explicabo in rem sapiente? Necessitatibus quam similique fuga pariatur vero quae ipsam ab assumenda provident in, natus quidem unde reprehenderit fugiat! Iusto iure atque fugiat inventore rerum in?</p>
+            <p>Commodi soluta quis reprehenderit a, accusantium alias, totam asperiores, consequatur dicta debitis maiores. Perferendis adipisci eius illum doloremque repellendus alias quam reiciendis consectetur asperiores! Recusandae dolores voluptatem ad iure consequuntur.</p>
+            <p>Architecto, reiciendis veritatis autem quis animi et sunt eligendi voluptatibus deleniti eius cumque in at quam, perspiciatis aperiam accusantium cupiditate unde asperiores! Vero, aliquid! Voluptatem quae ipsum nam quos debitis.</p>
+            <p>Cumque, amet accusamus quisquam cum dignissimos eum vel. Error dolorem asperiores qui provident reprehenderit pariatur at! Dolor itaque nobis veritatis rem facere delectus eum, consequatur eos molestiae quidem inventore cupiditate!</p>
+            <p>Iste minus explicabo in rem sapiente? Necessitatibus quam similique fuga pariatur vero quae ipsam ab assumenda provident in, natus quidem unde reprehenderit fugiat! Iusto iure atque fugiat inventore rerum in?</p>
+            <p>Commodi soluta quis reprehenderit a, accusantium alias, totam asperiores, consequatur dicta debitis maiores. Perferendis adipisci eius illum doloremque repellendus alias quam reiciendis consectetur asperiores! Recusandae dolores voluptatem ad iure consequuntur.</p>
+            <p>Architecto, reiciendis veritatis autem quis animi et sunt eligendi voluptatibus deleniti eius cumque in at quam, perspiciatis aperiam accusantium cupiditate unde asperiores! Vero, aliquid! Voluptatem quae ipsum nam quos debitis.</p>
+            <p>Cumque, amet accusamus quisquam cum dignissimos eum vel. Error dolorem asperiores qui provident reprehenderit pariatur at! Dolor itaque nobis veritatis rem facere delectus eum, consequatur eos molestiae quidem inventore cupiditate!</p>
+        </div>
+        <div id="right" class="right">Right</div>
+    </div>
+    <div id="footer" class="footer">Footer</div>
+</body>
+</html>
