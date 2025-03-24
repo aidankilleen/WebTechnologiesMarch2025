@@ -37,9 +37,48 @@
     <div class="container">
         <div class="row">
             <div class="col-1">
-                <button id="btnAdd" class="btn btn-success">Add User</button>
+                <button 
+                    id="btnAdd" 
+                    class="btn btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#dlgUser"
+                >
+                    Add User
+                </button>
             </div>
         </div>
+        <div class="modal fade" id="dlgUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="txtName" type="text" class="form-control" placeholder="Name">
+                    <input id="txtEmail" type="text" class="form-control" placeholder="Email">
+                    <input type="checkbox" class="form-check-input" id="chkActive">
+                    <label for="chkActive" class="form-check-label">Active</label><br>
+                    
+                </div>
+                <div class="modal-footer">
+                  <button id="btnSave" class="btn btn-primary" onclick="onSave()" data-bs-dismiss="modal">Save</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+<!--         <div class="row">
+            <div id="dlgUser" class="col collapse">
+                <input id="txtName" type="text" class="form-control" placeholder="Name">
+                <input id="txtEmail" type="text" class="form-control" placeholder="Email">
+                <input type="checkbox" class="form-check-input" id="chkActive">
+                <label for="chkActive" class="form-check-label">Active</label><br>
+                <button id="btnSave" class="btn btn-primary" onclick="onSave()">Save</button>
+            </div>
+        </div> -->
 
 
         <div class="row">
@@ -79,7 +118,13 @@
             $.getJSON(url, data => {
                 let users = data.users ? data.users : data;
                 users.forEach(user => {
-                    $('#tblUsers tbody').append(`
+                    addUserToTable(user);
+                })
+            });
+        });
+
+        function addUserToTable(user) {
+            $('#tblUsers tbody').append(`
                         <tr id="tr_${user.id}">
                             <td>${user.id}</td>
                             <td>${user.name}</td>
@@ -103,12 +148,9 @@
                             </td>
                         </tr>
                     `);
-                })
-            });
-            $("#btnAdd").on("click", () => {
-                alert ("+");
-            });
-        });
+        }
+
+
 
         function onDelete(id) {
             if (confirm("Are you sure?")) {
@@ -127,6 +169,34 @@
         }
         function onEdit(id) {
             alert(`edit ${id}`);
+        }
+        function onSave() {
+
+            let name = $('#txtName').val();
+            let email = $('#txtEmail').val();
+            let active = $('#chkActive').prop('checked');
+
+            $.ajax({
+                url: url, 
+                method: "POST",
+                data: JSON.stringify({
+                    name: name, 
+                    email: email, 
+                    active: active
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                success: (addedUser) => {
+                    // add user to the table
+                    addUserToTable(addedUser)
+
+                    alert("Added");
+                },
+                error: () => {
+                    alert("Error");
+                }
+            })
         }
     </script>
 </body>
