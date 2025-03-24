@@ -76,18 +76,30 @@
 
         $(document).ready(()=>{
             // make an ajax call to get the data
-
             $.getJSON(url, data => {
                 let users = data.users ? data.users : data;
                 users.forEach(user => {
                     $('#tblUsers tbody').append(`
-                        <tr>
+                        <tr id="tr_${user.id}">
                             <td>${user.id}</td>
                             <td>${user.name}</td>
                             <td>${user.email}</td>
                             <td>${user.active ? "Active" : "Inactive"}</td>
                             <td>
-                                <button id="btnDelete_${user.id}"class="btn btn-sm btn-danger">Delete</button>
+                                <button 
+                                    id="btnDelete_${user.id}"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="onDelete(${user.id})"
+                                >
+                                    Delete
+                                </button>
+                                <button 
+                                    id="btnEdit_${user.id}"
+                                    class="btn btn-sm btn-secondary"
+                                    onclick="onEdit(${user.id})"
+                                >
+                                    Edit
+                                </button>
                             </td>
                         </tr>
                     `);
@@ -97,6 +109,25 @@
                 alert ("+");
             });
         });
+
+        function onDelete(id) {
+            if (confirm("Are you sure?")) {
+                $.ajax({
+                    url: `${url}/${id}`, 
+                    method: "DELETE", 
+                    success: () => {
+                        $(`#tr_${id}`).remove();
+                        alert("deleted");
+                    }, 
+                    error: () => {
+                        alert("error");
+                    }
+                });
+            }
+        }
+        function onEdit(id) {
+            alert(`edit ${id}`);
+        }
     </script>
 </body>
 </html>
