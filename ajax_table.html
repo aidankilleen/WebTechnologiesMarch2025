@@ -62,7 +62,7 @@
                     <label for="chkActive" class="form-check-label">Active</label><br>
                 </div>
                 <div class="modal-footer">
-                  <button id="btnSave" class="btn btn-primary" onclick="onSave()" data-bs-dismiss="modal">Save</button>
+                  <button id="btnSave" class="btn btn-primary" onclick="onAdd()" data-bs-dismiss="modal">Save</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -161,6 +161,22 @@
                                 >
                                     Edit
                                 </button>
+                                <button 
+                                    id="btnSave_${user.id}"
+                                    class="btn btn-sm btn-success"
+                                    onclick="onSave(${user.id})"
+                                    disabled
+                                >
+                                    Save
+                                </button>
+                                <button 
+                                    id="btnCancel_${user.id}"
+                                    class="btn btn-sm btn-warning"
+                                    onclick="onCancel(${user.id})"
+                                    disabled
+                                >
+                                    Cancel
+                                </button>
                             </td>
                         </tr>
                     `);
@@ -184,9 +200,52 @@
             }
         }
         function onEdit(id) {
-            alert(`edit ${id}`);
+            let name = $(`#tr_${id} td:nth-child(2)`).text();
+            $(`#tr_${id} td:nth-child(2)`)
+                .html(`<input id="txtName_${id}" value="${name}">`);
+            let email = $(`#tr_${id} td:nth-child(3)`).text();
+            $(`#tr_${id} td:nth-child(3)`)
+                .html(`<input id="txtEmail_${id}" value="${email}">`);
+            let active = $(`#tr_${id} td:nth-child(4)`).text() == "Active";
+            $(`#tr_${id} td:nth-child(4)`)
+                .html(`<input type="checkbox" 
+                        id="chkActive_${id}" ${active ? "checked" : ""}>`);
+
+            $(`#btnEdit_${id}`).prop('disabled', true);
+            $(`#btnSave_${id}`).prop('disabled', false);
+            $(`#btnCancel_${id}`).prop('disabled', false);
         }
-        function onSave() {
+        function onSave(id) {
+            let name = $(`#txtName_${id}`).val();
+            let email = $(`#txtEmail_${id}`).val();
+            let active = $(`#chkActive_${id}`).prop('checked');
+
+            $.ajax({
+                url: `${url}/${id}`,
+                method: "PUT", 
+                data: JSON.stringify({name:name, email:email, active:active, id:id}), 
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                success: () => {
+                    $(`#tr_${id} td:nth-child(2)`).text(name);
+                    $(`#tr_${id} td:nth-child(3)`).text(email);
+                    $(`#tr_${id} td:nth-child(4)`).text(active?"Active":"Inactive");
+                    
+                    $(`#btnEdit_${id}`).prop('disabled', false);
+                    $(`#btnSave_${id}`).prop('disabled', true);
+                    $(`#btnCancel_${id}`).prop('disabled', true);
+                    showToaster("Edits saved");
+                }, 
+                error: () => {
+                    alert("error");
+                }
+            })
+        }
+        function onCancel(id) {
+            alert("cancel pressed");
+        }
+        function onAdd() {
 
             let name = $('#txtName').val();
             let email = $('#txtEmail').val();
