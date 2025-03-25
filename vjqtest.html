@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Vanilla jQuery Replacement</h1>
+
+    <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+        <li>item 4</li>
+        <li>item 5</li>
+    </ul>
+
+    <button id="btnTest">Test</button>
+
+    <select id="selColour"></select>
+
+    <script src="vjq.js"></script>
+    <script>
+
+        $(document).on('DOMContentLoaded', function() {
+            alert('Document loaded');
+        });
+
+        $('h1').html("Is this working?");
+
+        $('ul li:nth-child(2)').css('color', 'red');
+
+        $('#btnTest').on('click', function() {
+            alert('Button clicked');
+        });
+
+        let colours = ['red', 'green', 'blue', 'yellow', 'orange'];
+
+        colours.forEach(colour => $('#selColour').append(`<option>${colour}</option>`)); 
+    </script>
+
+</body>
+</html>
