@@ -35,6 +35,10 @@
         </div>
       </nav>
   
+      <!--
+      <input type="text" id="txtName" value="Aidan" data-original-value="Aidan"/>
+    -->
+
     <div class="container">
         <div class="row">
             <div class="col-1">
@@ -202,18 +206,30 @@
         function onEdit(id) {
             let name = $(`#tr_${id} td:nth-child(2)`).text();
             $(`#tr_${id} td:nth-child(2)`)
-                .html(`<input id="txtName_${id}" value="${name}">`);
+                .html(`<input id="txtName_${id}" 
+                            value="${name}" 
+                            data-original-value="${name}">`);
+
             let email = $(`#tr_${id} td:nth-child(3)`).text();
             $(`#tr_${id} td:nth-child(3)`)
-                .html(`<input id="txtEmail_${id}" value="${email}">`);
+                .html(`<input 
+                        id="txtEmail_${id}" 
+                        value="${email}"
+                        data-original-value="${email}">`);
+
             let active = $(`#tr_${id} td:nth-child(4)`).text() == "Active";
             $(`#tr_${id} td:nth-child(4)`)
                 .html(`<input type="checkbox" 
-                        id="chkActive_${id}" ${active ? "checked" : ""}>`);
+                        id="chkActive_${id}" ${active ? "checked" : ""}
+                        data-original-value="${active}">`);
 
-            $(`#btnEdit_${id}`).prop('disabled', true);
-            $(`#btnSave_${id}`).prop('disabled', false);
-            $(`#btnCancel_${id}`).prop('disabled', false);
+           configureButtons(id, true);
+        }
+
+        function configureButtons(id, editing) {
+            $(`#btnEdit_${id}`).prop('disabled', editing);
+            $(`#btnSave_${id}`).prop('disabled', !editing);
+            $(`#btnCancel_${id}`).prop('disabled', !editing);
         }
         function onSave(id) {
             let name = $(`#txtName_${id}`).val();
@@ -232,9 +248,8 @@
                     $(`#tr_${id} td:nth-child(3)`).text(email);
                     $(`#tr_${id} td:nth-child(4)`).text(active?"Active":"Inactive");
                     
-                    $(`#btnEdit_${id}`).prop('disabled', false);
-                    $(`#btnSave_${id}`).prop('disabled', true);
-                    $(`#btnCancel_${id}`).prop('disabled', true);
+                    configureButtons(id, false);
+
                     showToaster("Edits saved");
                 }, 
                 error: () => {
@@ -243,7 +258,19 @@
             })
         }
         function onCancel(id) {
-            alert("cancel pressed");
+
+            // read the original name
+            let originalName = $(`#txtName_${id}`).data('original-value');
+            $(`#tr_${id} td:nth-child(2)`).text(originalName);
+
+            let originalEmail = $(`#txtEmail_${id}`).data('original-value');
+            $(`#tr_${id} td:nth-child(3)`).text(originalEmail);
+
+            let originalActive = $(`#chkActive_${id}`).data('original-value');
+            $(`#tr_${id} td:nth-child(4)`).text(originalActive ? "Active" : "Inactive");
+
+            configureButtons(id, false);
+            //alert("cancel pressed");
         }
         function onAdd() {
 
