@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Destructuring</h1>
+
+
+    <script>
+
+/*         console.log("Destructuring Investigation");
+
+        let list = [1, 2, 3, 4, 5];
+
+        console.log(list);
+
+        // ... is the spread operator
+        let [first, second, ...rest] = list;
+
+        console.log(first);
+        console.log(second);
+        console.log(rest);
+
+        let [...copy] = list;
+        copy[0] = 999;
+
+        console.log(list);
+        console.log(copy);
+
+        // destructuring works in an object as well
+
+
+        let {name} = o;
+
+        console.log(name);
+
+        // you can destructure a field to a different named variable
+        let {name:n} = o;
+
+        console.log(n);
+
+        let {id, email} = o;
+
+        console.log(id);
+        console.log(email); */
+
+        let o = {
+            name: "Aidan", 
+            id: 123, 
+            email: "aidan@gmail.com", 
+            active: true
+        }
+
+        let {name, ...resto} = o;
+
+        console.log(name);
+        console.log(resto);
+
+        //
+
+        let id=1;
+        let firstName = "Alice";
+        let lastName = "Murphy";
+        let email = "alicem@gmail.com";
+
+        /*
+        let person = {
+            id:id, 
+            firstName:firstName, 
+            lastName: lastName, 
+            email: email
+        };
+        */
+       // is equivalent to this:
+       let person = {
+        id, 
+        firstName, 
+        lastName, 
+        email
+       };
+
+       // uses for this:
+
+
+       let a = 10;
+       let b = 20;
+
+       console.log(a);
+       console.log(b);
+
+       // swap a and b in a single line
+       [b, a] = [a, b];
+
+       console.log(a);
+       console.log(b);
+
+
+
+
+       function greet(person) {
+        console.log(`Hello ${person.firstName}`);
+       }
+
+       greet(person);
+
+       // React uses this style of destructuring a lot
+       function greets({ firstName }) {
+        console.log(`Hello ${firstName}`);
+       }
+       greets(person);
+
+
+       // combine / merge objects
+
+       let o1 = {
+        name: "Aidan", 
+        email: "aidan@gmail.com"
+       }
+
+       let o2 = {
+        phone: "087 2035044"
+       }
+
+       let merged = {
+        ...o1, 
+        ...o2
+       }
+
+       console.log(merged)
+
+       let a1 = [1, 2, 3];
+       let a2 = [4, 5, 6];
+
+       let mergedArray = [...a1, ...a2];
+
+       console.log(mergedArray);
+
+
+
+       let co = {
+        name: "Aidan", 
+        address: {
+            house: 15, 
+            road: "Main Street", 
+            town: "Midleton", 
+
+            gps: {
+                lat: 51.454344, 
+                lng: 7.89765
+            }
+        }
+       }
+
+       let {address:{gps}} = co;
+
+       console.log(gps);
+
+
+       fetch("https://api.citybik.es/v2/networks/cork")
+        .then(response => response.json())
+        .then(({network:{company, location, stations}}) => {
+            console.log(company);
+            console.log(location);
+            console.log(stations)
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

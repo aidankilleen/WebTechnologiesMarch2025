@@ -78,6 +78,28 @@
               </div>
             </div>
           </div>
+          <div id="dlgConfirm" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Confirm Dialog</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" 
+                    class="btn btn-secondary" 
+                    data-bs-dismiss="modal"
+                    data-action="cancel">Cancel</button>
+                  <button id="btnOk"type="button" 
+                    class="btn btn-primary" 
+                  >Ok</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <div class="row">
             <div class="col">
@@ -211,7 +233,16 @@
 
 
         function onDelete(id) {
-            if (confirm("Are you sure?")) {
+
+            let options = {
+
+            }
+            const dlgConfirm = new bootstrap.Modal('#dlgConfirm', options)
+
+            //document.getElementById('dlgConfirm')
+            //    .addEventListener('hidden.bs.modal', (evt)=>{
+            $('#btnOk').on("click", (event) => {
+                // if ok was pressed then do the delete
                 $.ajax({
                     url: `${url}/${id}`, 
                     method: "DELETE", 
@@ -220,10 +251,23 @@
                         showToaster(`User ${id} deleted`);
                     }, 
                     error: () => {
-                        alert("error");
+                        showToaster("Something went wrong in the delete");
                     }
                 });
-            }
+                dlgConfirm.hide();
+                $('#btnOk').off("click"); // turn off click event after dialog closed
+                                          // prevent multiple event handlers.
+            });
+
+            dlgConfirm.show();
+
+            console.log("dialog shown");
+
+            //if (confirm("Are you sure?")) {
+            /*
+                
+            */
+            //}
         }
         function onEdit(id) {
             let name = $(`#tr_${id} td:nth-child(2)`).text();
