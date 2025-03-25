@@ -34,19 +34,7 @@
           </div>
         </div>
       </nav>
-      <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-        <div id="toastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-            <!--<img src="..." class="rounded me-2" alt="...">-->
-            <strong class="me-auto">Bootstrap</strong>
-            <!--<small>11 mins ago</small>-->
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-            Hello, world! This is a toast message.
-            </div>
-        </div>  
-    </div>    
+  
     <div class="container">
         <div class="row">
             <div class="col-1">
@@ -58,7 +46,6 @@
                 >
                     Add User
                 </button>
-                <button id="btnToast">Test Toast</button>
             </div>
         </div>
         <div class="modal fade" id="dlgUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,7 +90,19 @@
         </div>
     </div>
 
-
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="toastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <!--<img src="..." class="rounded me-2" alt="...">-->
+            <strong class="me-auto">Changes Saved</strong>
+            <!--<small>11 mins ago</small>-->
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            Hello, world! This is a toast message.
+            </div>
+        </div>  
+    </div>  
     
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -124,16 +123,6 @@
                 users.forEach(user => {
                     addUserToTable(user);
                 })
-            });
-
-            // initialise the toast alert(s)
-            //const toastElList = document.querySelectorAll('.toast')
-
-            //const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
-
-
-            $('#btnToast').on('click', () => {
-                showToaster("is this working?");
             });
         });
 
