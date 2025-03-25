@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Fetch API Investigation</h1>
+
+    <img src="https://www.cso.ie/en/media/csologo.png">
+
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script>
+        /*
+        fetch("https://api.citybik.es/v2/networks/cork")
+        .then(response => response.json())
+        .then(({network:{company, location, stations}}) => {
+            console.log(company);
+            console.log(location);
+            console.log(stations);
+        })
+        .catch(err=>{
+            console.log(err);
+        });
+        */
+
+        let newUser = {
+            name: "NEW User", 
+            email: "nu@gmail.com", 
+            active: false
+        }
+
+        fetch("https://api.acodingtutor.com/users",{
+            
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }, 
+            body: JSON.stringify(newUser)
+            
+        }).then(response => response.json())
+        .then(data => console.log(data));
+        
+
+        $('h1').text("Is this working?");
+        $.ajax({
+
+        })
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
