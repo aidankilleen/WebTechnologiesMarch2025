@@ -11,6 +11,13 @@
 <body>
     <h1>Sales Data</h1>
 
+    <table id="tblSummary" class="table">
+        <tbody>
+        </tbody>
+    </table>
+
+
+    <hr>
     Sort By:
     <select name="selSort" id="selSort">
         <option>quantity</option>
@@ -56,12 +63,67 @@
         const sortByQuantity = (a, b) => a.quantity - b.quantity;
         const sortByProduct = (a, b) => a.product.localeCompare(b.product);
 
+
+
+
+        function refreshSummary() {
+            console.log("Refreshing Summary")
+            // reduce goes through each item and can accumulate results
+
+            // get distinct list of products
+            let distinctProductList = salesData.reduce((currentTotal, currentItem, currentIndex, arr) => {
+                
+                if (currentTotal.indexOf(currentItem.product) == -1) {
+                    currentTotal.push(currentItem.product);
+                }
+                return currentTotal;
+
+            }, []);
+            console.log("--------------------")
+            console.log(distinctProductList);
+
+            // get total quantity for each product
+            let results = salesData.reduce((currentTotal, item) => {
+                currentTotal[item.product] = currentTotal[item.product] == null 
+                                           ? item.quantity 
+                                           : currentTotal[item.product] + item.quantity;
+                currentTotal.total += item.quantity;
+                return currentTotal;
+            }, {
+                pencil: 0,
+                pen: 0, 
+                paper: 0, 
+                paint: 0, 
+                crayon: 0, 
+                card: 0, 
+                staplers: 0, 
+                total: 0
+            });
+
+            console.log(results);
+
+            Object.keys(results).forEach(key => {
+                $('#tblSummary tbody').append(`<tr><td>${key}</td><td>${results[key]}</td></tr>`);
+            });
+
+
+
+
+
+
+        }
+
+
+
         async function refreshSalesTable() {
 
             $('#tblSales tbody').empty();
             const sortFn = $('#selSort').val() == 'quantity' ? sortByQuantity : sortByProduct; 
             let sorted = salesData.sort(sortFn);
             let order = $('input[name=rbOrder]:checked').val();
+
+
+            
 
             if (order == 'desc') {
                 sorted.reverse();
@@ -121,11 +183,15 @@
         }
 
         refreshDataFromApi()
-            .then(refreshSalesTable);
+            .then(() => {
+                refreshSalesTable()
+                refreshSummary()
+            });
 
         $('#selSort').on('change', refreshSalesTable);
         $('input[name=rbOrder]').on('change', refreshSalesTable);
 
+        
     </script>
 </body>
 </html>
