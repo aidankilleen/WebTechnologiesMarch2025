@@ -33,7 +33,12 @@
             active: false
         }
 
-        fetch("https://api.acodingtutor.com/users",{
+
+
+
+        
+        async function callApi() {
+            return fetch("https://api.acodingtutor.com/users",{
             
             method: "POST",
             headers: {
@@ -41,14 +46,33 @@
             }, 
             body: JSON.stringify(newUser)
             
-        }).then(response => response.json())
-        .then(data => console.log(data));
+            }).then(response => response.json())
+
+        }
+
+        async function callApiGetUsers() {
+            try {
+                let response = await fetch("https://api.acodingtutor.com/sales",{
+                    method: "GET",
+                });
+
+                if (!response.ok) {
+                    throw new Error('HTTP Error');
+                }
+                return await response.json();
+
+            } catch (error) {
+                return null
+            }
+        }
+        async function getUsers() {
+
+            let users = await callApiGetUsers();
+            console.log(users);
+        }
         
+        getUsers();
 
-        $('h1').text("Is this working?");
-        $.ajax({
-
-        })
 
 
 

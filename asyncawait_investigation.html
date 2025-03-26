@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        
+
+
+        function doAsynchronousTask() {
+
+            let promise = new Promise((resolve, rejct)=>{
+
+                // do asynchronous code
+                setTimeout(() => {
+                    resolve("some data from the asynchronous task");
+                }, 3000);
+
+            });
+
+            return promise;
+        }
+
+        async function callAsyncTask() {
+            let data = await doAsynchronousTask();
+            console.log(data);
+        }
+
+        callAsyncTask();
+
+
+        async function callApi() {
+
+            try {
+                let response = await fetch("https://api.acodingtutor.com/sales");
+
+                if (!response.ok) {
+                    throw new Error("HTTP failed")
+                }
+                return await response.json();
+            }
+            catch(err) {
+                //console.log(err);
+                console.log("An error occurred");
+            }
+        }
+
+        async function getSalesData() {
+
+            let data = await callApi();
+            console.log(data);
+            return data;
+        }
+
+       getSalesData();
+
+        console.log("------------------------");
+        //console.log(sales);
+
+
+
+
+
+
+
+
+
+        // instead of calling the asynchronous task with .then()
+        /*
+        doAsynchronousTask()
+            .then((data) =>{
+                console.log("asynchrous task complete");
+                console.log(data)
+            })
+            .catch(() => {
+                console.log("something went wrong");
+            });
+        */
+/*
+
+
+
+
+
+        try {
+            fetch("https://xxxapi.acodingtutor.com/sales",{
+                    method: "GET",
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP Error');
+                    }
+                    response.json()
+                }
+                )
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(err => console.log(err))
+
+        } catch(err) {
+            console.log("Error Caught");
+            console.log(err);
+        }
+*/
+        console.log("finished");
+    </script>
+</body>
+</html>
