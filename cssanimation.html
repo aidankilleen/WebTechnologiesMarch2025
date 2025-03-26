@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @keyframes rotate {
+            0% {
+                transform: roate(0deg);
+                border: 1px solid black;
+            }
+            50% {
+                transform: rotate(180deg);
+                border: 10px solid black;
+            }
+            100% {
+                transform: rotate(360deg);
+                border: 1px solid black;
+            }
+        }
+
+
+        .box {
+            width: 75px;
+            height: 75px;
+            background-color: lightcoral;
+            border: 1px solid black;
+            animation: rotate 5s linear infinite;
+            font-size: 4em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="box" id="box1"></div>
+
+    <script>
+        let count = 0;
+        let box = document.getElementById('box1');
+
+        box.addEventListener('animationiteration', () => {
+            count++;
+            box.innerHTML = `${count}`
+        })
+    </script>
+</body>
+</html>

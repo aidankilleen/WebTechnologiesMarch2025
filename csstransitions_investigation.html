@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 75px;
+            height: 75px;
+            background-color: lightcoral;
+            border: 1px solid black;
+            transition: all 1s ease-in-out;
+        }
+
+        #box1 {
+            transition: all 1s ease-in-out;
+        }
+        #box2 {
+            transition: all 1s linear;
+        }
+        #box3 {
+            transition: all 1s steps(10);
+        }
+        #box4 {
+            transition: all 1s ease;
+        }
+        #box5 {
+            transition: all 1s step-end
+        }
+        #box6 {
+            transition: all 1s cubic-bezier(0.96, 1.27, 0.64,-0.24)
+        }
+        .container:hover .box {
+            transform: translateX(350px);
+        }
+        /*
+        .box:hover  {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+            */
+
+        #message {
+            background-color: lightgreen;
+            width: 80%;
+            height: 20vh;
+            margin: 0 auto;
+            border: 1px solid black;
+            border-radius: 4px;
+            font-size: 2em;
+        }
+        #message:empty {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+    </div>
+    <hr>
+    <div class="container">
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"></div>
+        <div class="box" id="box3"></div>
+        <div class="box" id="box4"></div>
+        <div class="box" id="box5"></div>
+        <div class="box" id="box6"></div>
+    </div>
+
+    <div id="message"></div>
+
+    <script>
+        let box = document.getElementById('box6');
+
+        box.addEventListener('transitionend', () => {
+            document.getElementById('message').innerHTML = "Transition complete";
+        })
+    </script>
+</body>
+</html>
